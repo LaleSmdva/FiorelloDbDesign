@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Fiorello" id="Project-1052" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="Fiorello" >
+		<table name="Address" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="CountryId" type="INT" length="2" jt="4" />
+			<column name="Town/City" type="TEXT" jt="-1" />
+			<column name="State/County" type="TEXT" jt="-1" />
+			<column name="Postcode/ZIP" type="TEXT" jt="-1" />
+			<column name="StreetAddress" type="VARCHAR" length="100" jt="12" />
+			<column name="Apartment/Unit" type="TEXT" jt="-1" />
+			<index name="pk_address" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_address_userandaddress" virtual="y" to_schema="Fiorello.INSTANCE" to_table="UserAndAddress" type="Identifying" >
+				<fk_column name="Id" pk="AddressId" />
+			</fk>
+			<fk name="fk_address_checkout" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Checkout" type="Identifying" >
+				<fk_column name="Id" pk="AddressId" />
+			</fk>
+		</table>
+		<table name="Advert" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Title" type="INT" jt="4" />
+			<column name="Description" type="INT" jt="4" />
+			<column name="VideoId" type="INT" jt="4" />
+			<index name="pk_advert" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Author" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Fullname" type="VARCHAR" length="100" jt="12" />
+			<column name="Image" type="INT" jt="4" />
+			<column name="Description" type="INT" jt="4" />
+			<column name="FacebookLink" type="INT" jt="4" />
+			<column name="TwitterLink" type="INT" jt="4" />
+			<index name="pk_author" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_author_fromourblogandauthor" virtual="y" to_schema="Fiorello.INSTANCE" to_table="FromOurBlogAndAuthor" type="Identifying" >
+				<fk_column name="Id" pk="AuthorId" />
+			</fk>
+		</table>
+		<table name="CactusesCategory" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_cactusescategory" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Cart" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="OrderDetailsId" prior="CartProductsId" type="INT" jt="4" />
+			<column name="CouponCode" type="INT" jt="4" />
+			<index name="pk_cart" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Category" prior="categoryname_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="CategoryName" type="VARCHAR" length="100" jt="12" />
+			<column name="PriceRangeId" type="INT" jt="4" />
+			<index name="pk_slider_3" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_category_productsandcategory" virtual="y" to_schema="Fiorello.INSTANCE" to_table="ProductsAndCategory" type="Identifying" >
+				<fk_column name="Id" pk="CategoryId" />
+			</fk>
+		</table>
+		<table name="Checkout" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Firstname" type="VARCHAR" length="100" jt="12" />
+			<column name="Lastname" type="VARCHAR" length="100" jt="12" />
+			<column name="CompanyName" type="VARCHAR" length="100" jt="12" />
+			<column name="Phone" type="TEXT" jt="-1" />
+			<column name="EmailAddress" type="VARCHAR" length="100" jt="12" />
+			<column name="AddressId" type="INT" length="100" jt="4" />
+			<column name="PaymentMethodId" type="INT" jt="4" />
+			<column name="CreditCardDetailsId" type="INT" jt="4" />
+			<index name="pk_checkout" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Comment" prior="fromourblog_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Image" prior="CoverImage" type="VARCHAR" length="200" jt="12" />
+			<column name="Username" type="VARCHAR" length="100" jt="12" />
+			<column name="Time" type="DATETIME" jt="93" />
+			<column name="Comment" prior="Comments" type="VARCHAR" length="1000" jt="12" />
+			<index name="pk_fromourblog_0" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_comment_fromourblog" virtual="y" to_schema="Fiorello.INSTANCE" to_table="FromOurBlog" type="Identifying" >
+				<fk_column name="Id" pk="CommentId" />
+			</fk>
+		</table>
+		<table name="Country" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="CountryName" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_country" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_country_address" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Address" type="Identifying" >
+				<fk_column name="Id" pk="CountryId" />
+			</fk>
+		</table>
+		<table name="CreditCardDetails" prior="entity_1" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="CC_Number" type="INT" jt="4" />
+			<column name="CC_ExpDate" type="DATE" jt="91" />
+			<column name="CC_Name" type="VARCHAR" length="100" jt="12" />
+			<column name="CC_CVV" type="INT" jt="4" />
+			<index name="pk_creditcarddetails" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_creditcarddetails_user" virtual="y" to_schema="Fiorello.INSTANCE" to_table="User" type="Identifying" >
+				<fk_column name="Id" pk="CreditCardDetailsId" />
+			</fk>
+			<fk name="fk_creditcarddetails_checkout" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Checkout" type="Identifying" >
+				<fk_column name="Id" pk="CreditCardDetailsId" />
+			</fk>
+		</table>
+		<table name="FlowerExperts" prior="advert_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Name" prior="Title" type="INT" jt="4" />
+			<column name="Image" prior="Description" type="INT" jt="4" />
+			<column name="RoleId" prior="Role" type="INT" jt="4" />
+			<index name="pk_advert_0" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="FromOurBlog" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="CoverImage" prior="MainImage" type="INT" jt="4" />
+			<column name="Title" type="INT" jt="4" />
+			<column name="Description" type="INT" jt="4" />
+			<column name="Time" type="DATETIME" jt="93" />
+			<column name="CommentId" prior="Comments" type="INT" jt="4" />
+			<column name="FacebookLogo" type="INT" jt="4" />
+			<column name="TwitterLogo" type="INT" jt="4" />
+			<index name="pk_fromourblog" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_fromourblog_fromourblogandimage" virtual="y" to_schema="Fiorello.INSTANCE" to_table="FromOurBlogAndImage" type="Identifying" >
+				<fk_column name="Id" pk="FromOurBlogId" />
+			</fk>
+			<fk name="fk_fromourblog_fromourblogandauthor" virtual="y" to_schema="Fiorello.INSTANCE" to_table="FromOurBlogAndAuthor" type="Identifying" >
+				<fk_column name="Id" pk="FromOurBlogId" />
+			</fk>
+		</table>
+		<table name="FromOurBlogAndAuthor" prior="FromOurBlogAnd" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="AuthorId" type="INT" jt="4" />
+			<column name="FromOurBlogId" type="INT" jt="4" />
+			<index name="pk_fromourblogandauthor" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="FromOurBlogAndImage" prior="FromOurBlogAnd" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="ImageId" type="INT" jt="4" />
+			<column name="FromOurBlogId" type="INT" jt="4" />
+			<index name="pk_fromourblogandimage" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Image" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="ImageLink" type="INT" jt="4" />
+			<index name="pk_image" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_image_fromourblogandimage" virtual="y" to_schema="Fiorello.INSTANCE" to_table="FromOurBlogAndImage" type="Identifying" >
+				<fk_column name="Id" pk="ImageId" />
+			</fk>
+		</table>
+		<table name="OrderDetails" prior="CartProducts" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Image" type="TEXT" jt="-1" />
+			<column name="Name" type="VARCHAR" length="200" jt="12" />
+			<column name="Description" type="TEXT" jt="-1" />
+			<column name="Price" type="DOUBLE" length="200" jt="8" />
+			<column name="Quantity" type="INT" jt="4" />
+			<column name="SubTotal" prior="Tags" type="INT" jt="4" />
+			<index name="pk_slider_1" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_orderdetails_cart" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Cart" type="Identifying" >
+				<fk_column name="Id" pk="OrderDetailsId" />
+			</fk>
+		</table>
+		<table name="PaymentMethod" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="PaymentMethod" prior="Payment" type="TEXT" jt="-1" />
+			<index name="pk_paymentmethod" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_paymentmethod_checkout" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Checkout" type="Identifying" >
+				<fk_column name="Id" pk="PaymentMethodId" />
+			</fk>
+		</table>
+		<table name="PriceRange" prior="filter_1" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="LowPrice" prior="BeginningRange" type="INT" jt="4" />
+			<column name="HighPrice" prior="Endrange" type="INT" jt="4" />
+			<index name="pk_filter_1" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_pricerange_category" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Category" type="Identifying" >
+				<fk_column name="Id" pk="PriceRangeId" />
+			</fk>
+		</table>
+		<table name="ProductImages" prior="ProductImage" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Image" type="INT" jt="4" />
+			<index name="pk_productimage" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_productimage_products" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Products" type="Identifying" >
+				<fk_column name="Id" pk="ProductImagesId" />
+			</fk>
+		</table>
+		<table name="Products" prior="slider_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Name" prior="BackgroundImage" type="VARCHAR" length="200" jt="12" />
+			<column name="ProductImagesId" prior="ImageId" type="TEXT" jt="-1" />
+			<column name="Description" type="VARCHAR" length="500" jt="12" />
+			<column name="Price" prior="SignatureImage" type="DOUBLE" length="200" jt="8" />
+			<column name="Quantity" type="INT" jt="4" />
+			<column name="StockCode" type="INT" jt="4" />
+			<column name="Weight" type="INT" jt="4" />
+			<column name="Dimensions" type="INT" jt="4" />
+			<column name="ReviewsId" type="INT" jt="4" />
+			<column name="SaleProductId" prior="SellingActivityId" type="INT" jt="4" />
+			<column name="SoldProductId" type="INT" jt="4" />
+			<column name="UnchangedProductId" type="INT" jt="4" />
+			<index name="pk_slider_0" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_products_productsandcategory" virtual="y" to_schema="Fiorello.INSTANCE" to_table="ProductsAndCategory" type="Identifying" >
+				<fk_column name="Id" pk="ProductId" />
+			</fk>
+			<fk name="fk_products_productsandtags" virtual="y" to_schema="Fiorello.INSTANCE" to_table="ProductsAndTags" type="Identifying" >
+				<fk_column name="Id" pk="ProductId" />
+			</fk>
+			<fk name="fk_products_saleproduct" virtual="y" to_schema="Fiorello.INSTANCE" to_table="SaleProduct" type="Identifying" >
+				<fk_column name="SaleProductId" pk="Id" />
+			</fk>
+			<fk name="fk_products_soldproduct" virtual="y" to_schema="Fiorello.INSTANCE" to_table="SoldProduct" type="Identifying" >
+				<fk_column name="SoldProductId" pk="Id" />
+			</fk>
+			<fk name="fk_products_unchangedproduct" virtual="y" to_schema="Fiorello.INSTANCE" to_table="UnchangedProduct" type="Identifying" >
+				<fk_column name="UnchangedProductId" pk="Id" />
+			</fk>
+		</table>
+		<table name="ProductsAndCategory" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="ProductId" type="INT" jt="4" />
+			<column name="CategoryId" type="INT" jt="4" />
+			<index name="pk_productsandcategory" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="ProductsAndTags" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="ProductId" type="INT" jt="4" />
+			<column name="TagId" type="INT" jt="4" />
+			<index name="pk_productsandtags" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Reviews" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Username" type="VARCHAR" length="100" jt="12" />
+			<column name="PostedTime" type="DATETIME" jt="93" />
+			<column name="UserReview" type="VARCHAR" length="500" jt="12" />
+			<index name="pk_reviews" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_reviews_products" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Products" type="Identifying" >
+				<fk_column name="Id" pk="ReviewsId" />
+			</fk>
+		</table>
+		<table name="Role" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="RoleName" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_role" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_role_flowerexperts" virtual="y" to_schema="Fiorello.INSTANCE" to_table="FlowerExperts" type="Identifying" >
+				<fk_column name="Id" pk="RoleId" />
+			</fk>
+		</table>
+		<table name="SaleProduct" prior="Sale" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="SaleProduct" type="INT" jt="4" />
+			<index name="pk_saleproduct" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Slider" prior="entity" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="BackgroundImage" type="VARCHAR" length="200" jt="12" />
+			<column name="Title" type="VARCHAR" length="200" jt="12" />
+			<column name="Description" type="VARCHAR" length="500" jt="12" />
+			<column name="SignatureImage" type="VARCHAR" length="200" jt="12" />
+			<index name="pk_slider" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="SoldProduct" prior="saleproduct_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="SoldProduct" prior="SaleProduct" type="INT" jt="4" />
+			<index name="pk_saleproduct_0" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Tags" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Tag" type="TEXT" jt="-1" />
+			<index name="pk_tags" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_tags_productsandtags" virtual="y" to_schema="Fiorello.INSTANCE" to_table="ProductsAndTags" type="Identifying" >
+				<fk_column name="Id" pk="TagId" />
+			</fk>
+		</table>
+		<table name="Transaction" prior="entity_1" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Date" type="DATE" jt="91" />
+			<column name="Status" type="TEXT" length="1" jt="-1" />
+			<column name="Amount" type="INT" jt="4" />
+			<column name="Currency" type="CHAR" length="2" jt="1" />
+			<column name="CreditCardNumber" type="INT" jt="4" />
+			<column name="CC_ExpDate" type="DATE" jt="91" />
+			<column name="CC_Name" type="VARCHAR" length="100" jt="12" />
+			<column name="CC_CVV" type="INT" jt="4" />
+			<index name="pk_transaction" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="UnchangedProduct" prior="soldproduct_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="UnchangedProduct" prior="SoldProduct" type="INT" jt="4" />
+			<index name="pk_saleproduct_1" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="User" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="Username" type="VARCHAR" length="100" jt="12" />
+			<column name="Email" type="TEXT" jt="-1" />
+			<column name="Password" type="TEXT" jt="-1" />
+			<column name="Address" prior="AddressId" type="VARCHAR" length="100" jt="12" />
+			<column name="CreditCardDetailsId" type="INT" jt="4" />
+			<index name="pk_user" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_user_userandaddress" virtual="y" to_schema="Fiorello.INSTANCE" to_table="UserAndAddress" type="Identifying" >
+				<fk_column name="Id" pk="UserId" />
+			</fk>
+		</table>
+		<table name="UserAndAddress" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="UserId" type="INT" jt="4" />
+			<column name="AddressId" type="INT" length="100" jt="4" />
+			<index name="pk_userandaddress" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+		</table>
+		<table name="Video" prior="entity_0" >
+			<column name="Id" type="INT" jt="4" mandatory="y" />
+			<column name="VideoLink" type="INT" jt="4" />
+			<index name="pk_video" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<fk name="fk_video_advert" virtual="y" to_schema="Fiorello.INSTANCE" to_table="Advert" type="Identifying" >
+				<fk_column name="Id" pk="VideoId" />
+			</fk>
+		</table>
+		<table name="entity" />
+		<table name="entity_0" />
+	</schema>
+	<layout name="Default Layout" id="Layout-21cd" show_relation="columns" >
+		<comment><![CDATA[Fiorello]]></comment>
+		<entity schema="Fiorello.INSTANCE" name="Address" color="C1D8EE" x="1536" y="1040" />
+		<entity schema="Fiorello.INSTANCE" name="Advert" color="3986C1" x="752" y="496" />
+		<entity schema="Fiorello.INSTANCE" name="Author" color="800000" x="944" y="1008" />
+		<entity schema="Fiorello.INSTANCE" name="Cart" color="C1D8EE" x="1104" y="1232" />
+		<entity schema="Fiorello.INSTANCE" name="Category" color="3986C1" x="256" y="48" />
+		<entity schema="Fiorello.INSTANCE" name="Checkout" color="C1D8EE" x="1776" y="1040" />
+		<entity schema="Fiorello.INSTANCE" name="Comment" color="800000" x="288" y="976" />
+		<entity schema="Fiorello.INSTANCE" name="Country" color="C1D8EE" x="1552" y="1248" />
+		<entity schema="Fiorello.INSTANCE" name="CreditCardDetails" color="C1D8EE" x="1504" y="800" />
+		<entity schema="Fiorello.INSTANCE" name="FlowerExperts" color="3986C1" x="768" y="656" />
+		<entity schema="Fiorello.INSTANCE" name="FromOurBlog" color="800000" x="480" y="832" />
+		<entity schema="Fiorello.INSTANCE" name="FromOurBlogAndAuthor" color="800000" x="688" y="1008" />
+		<entity schema="Fiorello.INSTANCE" name="FromOurBlogAndImage" color="800000" x="688" y="896" />
+		<entity schema="Fiorello.INSTANCE" name="Image" color="800000" x="944" y="896" />
+		<entity schema="Fiorello.INSTANCE" name="OrderDetails" color="3986C1" x="1328" y="1200" />
+		<entity schema="Fiorello.INSTANCE" name="PaymentMethod" color="C1D8EE" x="1728" y="1328" />
+		<entity schema="Fiorello.INSTANCE" name="PriceRange" color="3986C1" x="320" y="240" />
+		<entity schema="Fiorello.INSTANCE" name="ProductImages" color="C1D8EE" x="576" y="224" />
+		<entity schema="Fiorello.INSTANCE" name="Products" color="3986C1" x="752" y="64" />
+		<entity schema="Fiorello.INSTANCE" name="ProductsAndCategory" color="C1D8EE" x="512" y="80" />
+		<entity schema="Fiorello.INSTANCE" name="ProductsAndTags" color="C1D8EE" x="960" y="64" />
+		<entity schema="Fiorello.INSTANCE" name="Reviews" color="C1D8EE" x="960" y="192" />
+		<entity schema="Fiorello.INSTANCE" name="Role" color="3986C1" x="976" y="672" />
+		<entity schema="Fiorello.INSTANCE" name="SaleProduct" color="C1D8EE" x="752" y="384" />
+		<entity schema="Fiorello.INSTANCE" name="Slider" color="3986C1" x="48" y="48" />
+		<entity schema="Fiorello.INSTANCE" name="SoldProduct" color="3986C1" x="880" y="384" />
+		<entity schema="Fiorello.INSTANCE" name="Tags" color="C1D8EE" x="1184" y="64" />
+		<entity schema="Fiorello.INSTANCE" name="Transaction" color="C1D8EE" x="1728" y="1440" />
+		<entity schema="Fiorello.INSTANCE" name="UnchangedProduct" color="3986C1" x="1008" y="384" />
+		<entity schema="Fiorello.INSTANCE" name="User" color="C1D8EE" x="1152" y="992" />
+		<entity schema="Fiorello.INSTANCE" name="UserAndAddress" color="C1D8EE" x="1360" y="1040" />
+		<entity schema="Fiorello.INSTANCE" name="Video" color="3986C1" x="944" y="512" />
+	</layout>
+</project>
